@@ -1,0 +1,23 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+
+# Built frontend copied into the backend by the Docker build
+backend/static/
+
+# Local tooling and design-check output
+.claude/
+.taste-skill/
+.DS_Store
+*.log

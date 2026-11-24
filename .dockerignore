@@ -1,0 +1,13 @@
+.env
+.env.*
+**/node_modules
+**/.venv
+**/dist
+**/__pycache__
+**/.pytest_cache
+.git
+.claude
+.taste-skill
+backend/tests
+backend/static
+**/.DS_Store

@@ -1,0 +1,125 @@
+{
+  "sort_nested_loop": {
+    "Node Type": "Limit",
+    "Parallel Aware": false,
+    "Startup Cost": 1000.0,
+    "Total Cost": 1000.5,
+    "Plan Rows": 10,
+    "Plan Width": 40,
+    "Actual Startup Time": 59.9,
+    "Actual Total Time": 60.0,
+    "Actual Rows": 10,
+    "Actual Loops": 1,
+    "Plans": [
+      {
+        "Node Type": "Sort",
+        "Parent Relationship": "Outer",
+        "Plan Rows": 10,
+        "Plan Width": 40,
+        "Actual Startup Time": 58.9,
+        "Actual Total Time": 59.0,
+        "Actual Rows": 10,
+        "Actual Loops": 1,
+        "Sort Key": ["v.visited_at DESC", "v.id"],
+        "Sort Method": "top-N heapsort",
+        "Plans": [
+          {
+            "Node Type": "Nested Loop",
+            "Parent Relationship": "Outer",
+            "Join Type": "Inner",
+            "Plan Rows": 50,
+            "Plan Width": 40,
+            "Actual Startup Time": 0.1,
+            "Actual Total Time": 55.0,
+            "Actual Rows": 301,
+            "Actual Loops": 1,
+            "Join Filter": "(v.clinic_id = c.id)",
+            "Rows Removed by Join Filter": 0,
+            "Plans": [
+              {
+                "Node Type": "Index Scan",
+                "Parent Relationship": "Outer",
+                "Scan Direction": "Forward",
+                "Index Name": "clinics_pkey",
+                "Relation Name": "clinics",
+                "Alias": "c",
+                "Plan Rows": 3,
+                "Plan Width": 8,
+                "Actual Startup Time": 0.01,
+                "Actual Total Time": 0.5,
+                "Actual Rows": 3,
+                "Actual Loops": 1,
+                "Index Cond": "(id < 50)",
+                "Filter": "(city = 'Oslo'::text)",
+                "Rows Removed by Filter": 197
+              },
+              {
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Inner",
+                "Relation Name": "visits",
+                "Alias": "v",
+                "Plan Rows": 120,
+                "Plan Width": 32,
+                "Actual Startup Time": 0.02,
+                "Actual Total Time": 12.0,
+                "Actual Rows": 100.4,
+                "Actual Loops": 3,
+                "Filter": "(status = 'open'::text)",
+                "Rows Removed by Filter": 1499.4
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tie": {
+    "Node Type": "Hash Join",
+    "Join Type": "Inner",
+    "Plan Rows": 1000,
+    "Actual Total Time": 10.0,
+    "Actual Rows": 1000,
+    "Actual Loops": 1,
+    "Hash Cond": "(a.owner_id = o.id)",
+    "Plans": [
+      {
+        "Node Type": "Seq Scan",
+        "Parent Relationship": "Outer",
+        "Relation Name": "animals",
+        "Alias": "a",
+        "Plan Rows": 1000,
+        "Actual Total Time": 4.2,
+        "Actual Rows": 1000,
+        "Actual Loops": 1
+      },
+      {
+        "Node Type": "Hash",
+        "Parent Relationship": "Inner",
+        "Plan Rows": 500,
+        "Actual Total Time": 4.0,
+        "Actual Rows": 500,
+        "Actual Loops": 1,
+        "Plans": [
+          {
+            "Node Type": "Seq Scan",
+            "Parent Relationship": "Outer",
+            "Relation Name": "owners",
+            "Alias": "o",
+            "Plan Rows": 500,
+            "Actual Total Time": 4.2,
+            "Actual Rows": 500,
+            "Actual Loops": 1
+          }
+        ]
+      }
+    ]
+  },
+  "zero": {
+    "Node Type": "Result",
+    "Plan Rows": 1,
+    "Actual Startup Time": 0.0,
+    "Actual Total Time": 0.0,
+    "Actual Rows": 1,
+    "Actual Loops": 1
+  }
+}

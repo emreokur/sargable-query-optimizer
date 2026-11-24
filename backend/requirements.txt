@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+psycopg[binary]
+anthropic
+pytest
+httpx
+python-dotenv
+pglast
